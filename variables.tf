@@ -1,23 +1,15 @@
-variable "aws_region" {
-  type    = string
-  default = "us-west-1"
+variable "region" {
+  type        = string
+  description = "Region in which to deploy the project"
+  default     = "eastus2"
 }
 
-variable "db_table_name" {
-  type    = string
-  default = "exampleTable"
+variable "project_name" {
+  type        = string
+  description = "Name of the project"
 }
-
-variable "db_read_capacity" {
-  type    = number
-  default = 1
-}
-
-variable "db_write_capacity" {
-  type    = number
-  default = 1
-}
-
-variable "tag_user_name" {
-  type = string
+locals {
+  common_tags = {
+    project = var.project_name
+  }
 }

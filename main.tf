@@ -1,22 +1,14 @@
-provider "aws" {
-  version = "2.33.0"
-
-  region = var.aws_region
+terraform {
+  required_version = "~> 0.12"
 }
 
-resource "aws_dynamodb_table" "tfc_example_table" {
-  name = var.db_table_name
+provider "azurerm" {
+  version = "~> 2.6.0"
+  features {}
+}
 
-  read_capacity  = var.db_read_capacity
-  write_capacity = var.db_write_capacity
-  hash_key       = "UUID"
-
-  attribute {
-    name = "UUID"
-    type = "S"
-  }
-
-  tags = {
-    user_name = var.tag_user_name
-  }
+resource "azurerm_resource_group" "rg" {
+  name     = "rg${var.project_name}"
+  location = var.region
+  tags     = local.common_tags
 }
